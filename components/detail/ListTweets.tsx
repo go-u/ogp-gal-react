@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 import { Tweet } from '../../types/tweet';
+import variables from '../../config/variables';
 
 export default function ListTweets() {
   const [tweets, setTweets] = useState([] as Tweet[]);
@@ -14,7 +15,18 @@ export default function ListTweets() {
       if (typeof (window) !== 'undefined') {
         const url = new URL(window.location.href);
         const fqdn = url.pathname.split('/')[2];
-        const apiUrl = `http://localhost:8080/api/ogps/${fqdn}`;
+
+        let apiUrl = `http://localhost:8080/api/ogps/${fqdn}`;
+        if (typeof (window) !== 'undefined') {
+          const isStg = variables.domainsStg.includes(document.domain);
+          const isPrd = variables.domainsPrd.includes(document.domain);
+          if (isStg) {
+            apiUrl = `https://api.booost.app/api/ogps/${fqdn}`;
+          } else if (isPrd) {
+            apiUrl = `https://api.ogp-gal.com/api/ogps/${fqdn}`;
+          }
+        }
+
         const result = await axios(apiUrl);
         setTweets(result.data);
 
