@@ -29,7 +29,8 @@ export function getStats() {
       }
       const response = await axios(apiUrl);
       const stats = response.data;
-      stats.sort((a: stat, b: stat) => (a.count > b.count ? -1 : 0));
+      // (a.count > b.count ? -1 : 0) make problem with firefox
+      stats.sort((a: stat, b: stat) => (a.count > b.count ? -1 : 1));
       dispatch(setStats(stats));
     } catch (err) {
       // eslint-disable-next-line no-console
