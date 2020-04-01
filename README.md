@@ -5,6 +5,7 @@
 [オリジナルのVue/Quasar版](https://github.com/go-u/ogp-front)の機能を実現するため以下を導入しています。  
 React版は[こちらのURL](https://react.ogp-gal.com/)から確認できます。
 - Next
+- Redux Toolkit
 - Tailwind
 - Material UI
 - VirtualScroll(実装予定)
